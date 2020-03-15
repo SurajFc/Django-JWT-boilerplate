@@ -12,10 +12,10 @@ from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from .prevents import UserLoginRateThrottle
 from .serializers import (
-    RegistrationSerializer, AddressSerializer, ContactUsSerializer
+    RegistrationSerializer, ContactUsSerializer
 )
 from .models import (
-    User, Address, ContactUs
+    User, ContactUs
 )
 from django.contrib.auth.models import update_last_login
 from django.http import HttpResponse
@@ -48,9 +48,6 @@ class RegisterView(APIView):
             site = get_current_site(request)
             y = str(x.user_id)
             mysendmail.delay(str(site.domain), y)  # sendingmail using celery
-            ser = AddressSerializer(data=request.data)
-            ser.is_valid()
-            ser.save(user=x)
             return Response("Account Created..", status=status.HTTP_201_CREATED)
         return Response(serializer.errors)
 

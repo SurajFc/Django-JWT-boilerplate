@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (
-    User, Address,ContactUs
+    User, ContactUs
 )
 
 
@@ -14,7 +14,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('fname', 'lname', 'email', 'mobile',
-                  'password', 'account_type')
+                  'password')
 
     def create(self, validated_data):
 
@@ -22,8 +22,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             fname=validated_data['fname'],
             lname=validated_data['lname'],
             email=validated_data['email'],
-            mobile=validated_data.get('mobile', ''),
-            account_type=validated_data['account_type']
+            mobile=validated_data.get('mobile', '')
         )
 
         # hashing the password
@@ -31,11 +30,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-
-class AddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Address
-        exclude = ('user',)
 
 class ContactUsSerializer(serializers.ModelSerializer):
     class Meta:
