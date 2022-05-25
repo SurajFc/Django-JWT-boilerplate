@@ -6,7 +6,7 @@ djangorestframework-simplejwt==4.4.0
 Pillow==7.2.0
 psycopg2
 psycopg2-binary
-PyJWT==1.7.1
+PyJWT==2.4.0
 pytz==2019.2
 requests
 celery
